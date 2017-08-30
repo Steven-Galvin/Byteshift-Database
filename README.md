@@ -9,6 +9,7 @@ With this API, users have the ability to pull information regarding users, beaco
   * Endpoints for GET (all and by id), POST, PUT and DELETE.
   * A RANDOM endpoint that randomly returns a present preferred user.
   * A SEARCH endpoint that accepts email, status, and presence as search queries
+  * A CHECK endpoint that accepts email and password as parameters, returning data only if email and password match user in database
 
 #### Beacons
   * Endpoints for GET (all and by id), POST, PUT and DELETE.
@@ -57,6 +58,10 @@ Returns a random user.
 #### Search
 ##### GET `http://localhost:3000/user/search?query={params}`
 Returns all users with the given query.
+
+#### Check
+##### GET `http://localhost:3000/user/check?email={email_params}&password={password_params}`
+Returns user with the given email and password.
 
 ### Beacons
 

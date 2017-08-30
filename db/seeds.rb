@@ -20,9 +20,10 @@ p "Made #{Beacon.all.length} beacons"
           last_name: lastName,
           status: ["Preferred", "Standard"].sample,
           presence: ["Present", "Away"].sample,
-          email: "#{firstName.downcase}.#{lastName.downcase}#{i}@gmail.com"
+          email: "#{firstName.downcase}.#{lastName.downcase}#{i}@gmail.com",
+          password: SecureRandom.hex
           )
-  p "Created #{user.first_name} #{user.last_name} with a status of #{user.status} and an email of #{user.email}. #{user.first_name} is currently #{user.presence}."
+  p "Created #{user.first_name} #{user.last_name} with a status of #{user.status} and an email of #{user.email}. #{user.first_name} is currently #{user.presence}. Password is #{user.password}"
 end
 
 p "Made #{User.all.length} users"

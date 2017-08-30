@@ -11,8 +11,14 @@ class UsersController < ApplicationController
   # Search /user/search?query={params}
   def search
     query = params[:query]
-    @user = User.search(query)
-    render json: @user
+    if User.search(query) != []
+      @user = User.search(query)
+      render json: @user
+    else
+      render status: 404, json: {
+         message: "No users matching search terms"
+      }
+    end
   end
 
   # Random /user/random
@@ -21,6 +27,20 @@ class UsersController < ApplicationController
     users = User.where(status: "Preferred", presence: "Present")
     @user = users.sample
     render json: @user
+  end
+
+  # Check /user/check?email={params}&password={params}
+  def check
+    email = params[:email]
+    password = params[:password]
+    if User.check(email, password) != []
+      @user = User.check(email, password)
+      render json: @user
+    else
+      render status: 404, json: {
+         message: "No users matching email and password"
+      }
+    end
   end
 
   # GET /users/1
@@ -61,6 +81,6 @@ class UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:first_name, :last_name, :status, :id, :email)
+      params.require(:user).permit(:first_name, :last_name, :status, :email, :presence, :password)
     end
 end

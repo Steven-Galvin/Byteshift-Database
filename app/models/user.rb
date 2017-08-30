@@ -8,4 +8,8 @@ class User < ApplicationRecord
   scope :search, -> (input) do
     User.where(email: "#{input}").or(User.where(status: "#{input.capitalize}").or(User.where(presence: "#{input.capitalize}")))
   end
+
+  scope :check, -> (email, password) do
+    User.where(email: "#{email}").where(password: "#{password}")
+  end
 end

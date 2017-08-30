@@ -11,8 +11,14 @@ class BeaconsController < ApplicationController
   # Search /beacon/search?query={params}
   def search
     query = params[:query]
-    @beacon = Beacon.search(query)
-    render json: @beacon
+    if Beacon.search(query) != []
+      @beacon = Beacon.search(query)
+      render json: @beacon
+    else
+      render status: 404, json: {
+        message: "No beacons matching search terms"
+      }
+    end
   end
 
   # GET /beacons/1
